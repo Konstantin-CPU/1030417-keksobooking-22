@@ -13,8 +13,8 @@ const getRandomNumberWithPoint = function (min, max, numbersAfterPoint) {
   if (min < 0 || max <= min) {
     return 'Перепроверьте введенные значения!';
   }
-  return (Math.random() * (max - min + 1) + min).toFixed(numbersAfterPoint);
+  return parseFloat((Math.random() * (max - min) + min).toFixed(numbersAfterPoint));
 }
 
 alert(getRandomNumber(0, 1000));
-alert(getRandomNumberWithPoint(0, 1000, 4));
+alert(getRandomNumberWithPoint(1.1, 1.2, 4));
