@@ -21,7 +21,7 @@ const OFFERS_COUNTITY = 9;
 
 const EXAMPLE_OBJECT = {
   author: {
-    avatar: 'img/avatars/user0' + getRandomNumber(1, 8) + '.png',
+    avatar: 'img/avatars/user01.png',
   },
   offer: {
     title: 'Комфортабельные апартаменты с шикарным видом на море по доступной цене',
@@ -72,38 +72,46 @@ const getRandomCoordinates = (elements) => {
 
 const getPhotos = () => {
   const photos = [];
-  for (let i = 1; i <= getRandomNumber(1, 5); i++) {
-    photos[i] = 'http://o0.github.io/assets/images/tokyo/hotel' + i + '.jpg';
+  for (let i = 0; i <= getRandomNumber(1, 5); i++) {
+    photos[i] = 'http://o0.github.io/assets/images/tokyo/hotel' + (i + 1) + '.jpg';
   }
   return photos;
 }
 
-const getRandomFeatures = (array) => {
-  const items = [];
-  for (let i = getRandomNumber(0, 5); i <= array.length; i++) {
-    items[i] = array[Math.floor(Math.random()*items.length)];
+const getRandomArray = (array) => {
+
+  array.slice();
+
+  array.sort(() => Math.random() - 0.5);
+
+  const arrayLength = getRandomNumber(1, array.length);
+
+  const newArray = [];
+  for (let i = 0; i < arrayLength; i++) {
+    newArray.push(array[i]);
   }
-  return items;
+  return newArray;
 }
 
 const createOffer = () => {
   const locationX = getRandomCoordinates(EXAMPLE_OBJECT.location.x);
   const locationY = getRandomCoordinates(EXAMPLE_OBJECT.location.y);
+  const rooms = getRandomNumber(1, 5);
 
   return {
     author: {
-      avatar: EXAMPLE_OBJECT.author.avatar,
+      avatar: 'img/avatars/user0' + getRandomNumber(1, 8) + '.png',
     },
     offer: {
-      title: EXAMPLE_OBJECT.offer.title,
+      title: EXAMPLE_OBJECT.offer.title + '. Количество комнат: ' + rooms,
       address: locationX + ' ' + locationY,
       price: getRandomNumber(1000, 5000),
       type: getRandomArrayItem(EXAMPLE_OBJECT.offer.type),
-      rooms: getRandomNumber(2, 5),
+      rooms: rooms,
       guests: getRandomNumber(1, 6),
       checkin: getRandomArrayItem(EXAMPLE_OBJECT.offer.checkin),
       checkout: getRandomArrayItem(EXAMPLE_OBJECT.offer.checkout),
-      features: getRandomFeatures(EXAMPLE_OBJECT.offer.features),
+      features: getRandomArray(EXAMPLE_OBJECT.offer.features),
       description: EXAMPLE_OBJECT.offer.description,
       photos: getPhotos(),
     },
