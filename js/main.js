@@ -1,4 +1,4 @@
 'use strict';
 
-import offersArray from './data.js';
-alert(offersArray);
+import similarOffers from './popup.js';
+alert(similarOffers);
