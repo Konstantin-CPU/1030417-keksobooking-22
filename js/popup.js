@@ -15,13 +15,13 @@ const getSimilarOffers = (data) => {
 
     let type;
     if (data[i].offer.type === 'flat') {
-      type = 'flat';
+      type = 'Квартира';
     } else if (data[i].offer.type === 'bungalow') {
-      type = 'bungalow';
+      type = 'Бунгало';
     } else if (data[i].offer.type === 'house') {
-      type = 'house';
+      type = 'Дом';
     } else if (data[i].offer.type === 'palace') {
-      type = 'palace';
+      type = 'Дворец';
     }
 
     newElement.querySelector('.popup__type').textContent = type;
@@ -33,7 +33,7 @@ const getSimilarOffers = (data) => {
 
     for (let j = 0; j < data[i].offer.features.length; j++) {
       let feature = document.createElement('li');
-      feature.classList.add('popup__feauture', `popup__feauture--${data[i].offer.features[j]}`);
+      feature.classList.add('popup__feature', `popup__feature--${data[i].offer.features[j]}`);
       feature.textContent = data[i].offer.features[j];
       featuresList.appendChild(feature);
     }
