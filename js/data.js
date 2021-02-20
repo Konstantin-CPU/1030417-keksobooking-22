@@ -2,7 +2,7 @@ import {getRandomNumber, getRandomArrayItem, getRandomCoordinates, getPhotos, ge
 
 const OFFERS_COUNTITY = 9;
 
-const EXAMPLE_OBJECT = {
+const exampleObject = {
   author: {
     avatar: 'img/avatars/user01.png',
   },
@@ -46,8 +46,8 @@ const EXAMPLE_OBJECT = {
 };
 
 const createOffer = () => {
-  const locationX = getRandomCoordinates(EXAMPLE_OBJECT.location.x);
-  const locationY = getRandomCoordinates(EXAMPLE_OBJECT.location.y);
+  const locationX = getRandomCoordinates(exampleObject.location.x);
+  const locationY = getRandomCoordinates(exampleObject.location.y);
   const rooms = getRandomNumber(1, 5);
 
   return {
@@ -55,16 +55,16 @@ const createOffer = () => {
       avatar: 'img/avatars/user0' + getRandomNumber(1, 8) + '.png',
     },
     offer: {
-      title: EXAMPLE_OBJECT.offer.title + '. Количество комнат: ' + rooms,
+      title: exampleObject.offer.title + '. Количество комнат: ' + rooms,
       address: locationX + ' ' + locationY,
       price: getRandomNumber(1000, 5000),
-      type: getRandomArrayItem(EXAMPLE_OBJECT.offer.type),
+      type: getRandomArrayItem(exampleObject.offer.type),
       rooms: rooms,
       guests: getRandomNumber(1, 6),
-      checkin: getRandomArrayItem(EXAMPLE_OBJECT.offer.checkin),
-      checkout: getRandomArrayItem(EXAMPLE_OBJECT.offer.checkout),
-      features: getRandomArray(EXAMPLE_OBJECT.offer.features),
-      description: EXAMPLE_OBJECT.offer.description,
+      checkin: getRandomArrayItem(exampleObject.offer.checkin),
+      checkout: getRandomArrayItem(exampleObject.offer.checkout),
+      features: getRandomArray(exampleObject.offer.features),
+      description: exampleObject.offer.description,
       photos: getPhotos(),
     },
     location: {

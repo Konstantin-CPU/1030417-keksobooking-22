@@ -25,7 +25,7 @@ const getRandomCoordinates = (elements) => {
 
 const getPhotos = () => {
   const photos = [];
-  for (let i = 0; i <= getRandomNumber(1, 5); i++) {
+  for (let i = 0; i <= getRandomNumber(1, 2); i++) {
     photos[i] = 'http://o0.github.io/assets/images/tokyo/hotel' + (i + 1) + '.jpg';
   }
   return photos;
