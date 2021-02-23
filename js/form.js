@@ -1,25 +1,29 @@
+import {categories} from './data.js'
+
 const selectTypeForm = document.querySelector('#type');
 const priceInput = document.querySelector('#price');
 const timeInForm = document.querySelector('#timein');
 const timeOutForm = document.querySelector('#timeout');
 
+priceInput.placeholder = categories.categoryFlat.minPrice;
+
 selectTypeForm.addEventListener('change', function() {
   switch (selectTypeForm.value) {
     case 'bungalow':
-      priceInput.placeholder = 0;
-      priceInput.min = 0;
+      priceInput.placeholder = categories.categoryBungalow.minPrice;
+      priceInput.min = categories.categoryBungalow.minPrice;
       break;
     case 'flat':
-      priceInput.placeholder = 1000;
-      priceInput.min = 1000;
+      priceInput.placeholder = categories.categoryFlat.minPrice;
+      priceInput.min = categories.categoryFlat.minPrice;
       break;
     case 'house':
-      priceInput.placeholder = 5000;
-      priceInput.min = 5000;
+      priceInput.placeholder = categories.categoryHouse.minPrice;
+      priceInput.min = categories.categoryHouse.minPrice;
       break;
     case 'palace':
-      priceInput.placeholder = 10000;
-      priceInput.min = 10000;
+      priceInput.placeholder = categories.categoryPalace.minPrice;
+      priceInput.min = categories.categoryPalace.minPrice;
       break;
   }
 });
