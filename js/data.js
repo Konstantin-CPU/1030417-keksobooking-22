@@ -75,19 +75,19 @@ const createOffer = () => {
 };
 
 const categories = {
-  categoryBungalow: {
+  bungalow: {
     type: 'Бунгало',
     minPrice: 0,
   },
-  categoryFlat: {
+  flat: {
     type: 'Квартира',
     minPrice: 1000,
   },
-  categoryHouse: {
+  house: {
     type: 'Дом',
     minPrice: 5000,
   },
-  categoryPalace: {
+  palace: {
     type: 'Дворец',
     minPrice: 10000,
   },

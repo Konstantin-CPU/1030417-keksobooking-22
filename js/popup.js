@@ -13,18 +13,13 @@ const getSimilarOffers = (data) => {
     newElement.querySelector('.popup__text--address').textContent = data[i].offer.address;
     newElement.querySelector('.popup__text--price').textContent = data[i].offer.price + ' ₽/ночь';
 
-    let type;
-    if (data[i].offer.type === 'bungalow') {
-      type = categories.categoryBungalow.type;
-    } else if (data[i].offer.type === 'flat') {
-      type = categories.categoryFlat.type;
-    } else if (data[i].offer.type === 'house') {
-      type = categories.categoryHouse.type;
-    } else if (data[i].offer.type === 'palace') {
-      type = categories.categoryPalace.type;
+    let category = data[i].offer.type;
+    let type = categories[category].type;
+
+    if (category in categories) {
+      newElement.querySelector('.popup__type').textContent = type;
     }
 
-    newElement.querySelector('.popup__type').textContent = type;
     newElement.querySelector('.popup__text--capacity').textContent = `${data[i].offer.rooms} комнаты для ${data[i].offer.guests} гостей`;
     newElement.querySelector('.popup__text--time').textContent = `Заезд после ${data[i].offer.checkin}, выезд до ${data[i].offer.checkout}`;
 

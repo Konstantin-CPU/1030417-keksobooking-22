@@ -5,28 +5,29 @@ const priceInput = document.querySelector('#price');
 const timeInForm = document.querySelector('#timein');
 const timeOutForm = document.querySelector('#timeout');
 
-priceInput.placeholder = categories.categoryFlat.minPrice;
-
 selectTypeForm.addEventListener('change', function() {
   switch (selectTypeForm.value) {
     case 'bungalow':
-      priceInput.placeholder = categories.categoryBungalow.minPrice;
-      priceInput.min = categories.categoryBungalow.minPrice;
+      priceInput.placeholder = categories.bungalow.minPrice;
+      priceInput.min = categories.bungalow.minPrice;
       break;
     case 'flat':
-      priceInput.placeholder = categories.categoryFlat.minPrice;
-      priceInput.min = categories.categoryFlat.minPrice;
+      priceInput.placeholder = categories.flat.minPrice;
+      priceInput.min = categories.flat.minPrice;
       break;
     case 'house':
-      priceInput.placeholder = categories.categoryHouse.minPrice;
-      priceInput.min = categories.categoryHouse.minPrice;
+      priceInput.placeholder = categories.house.minPrice;
+      priceInput.min = categories.house.minPrice;
       break;
     case 'palace':
-      priceInput.placeholder = categories.categoryPalace.minPrice;
-      priceInput.min = categories.categoryPalace.minPrice;
+      priceInput.placeholder = categories.palace.minPrice;
+      priceInput.min = categories.palace.minPrice;
       break;
   }
 });
+
+let changeEvent = new Event('change');
+selectTypeForm.dispatchEvent(changeEvent);
 
 timeInForm.addEventListener('change', function(evt) {
   timeOutForm.value = evt.target.value;
