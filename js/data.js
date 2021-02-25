@@ -74,24 +74,20 @@ const createOffer = () => {
   };
 };
 
-const categories = {
-  bungalow: {
-    type: 'Бунгало',
-    minPrice: 0,
+const offerData = {
+  type: {
+    bungalow: 'Бунгало',
+    house: 'Дом',
+    flat: 'Квартира',
+    palace: 'Дворец',
   },
-  flat: {
-    type: 'Квартира',
-    minPrice: 1000,
-  },
-  house: {
-    type: 'Дом',
-    minPrice: 5000,
-  },
-  palace: {
-    type: 'Дворец',
-    minPrice: 10000,
+  minPrice: {
+    bungalow: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000,
   },
 }
 
 const offersArray = new Array(OFFERS_COUNTITY + 1).fill(null).map(() => createOffer());
-export {offersArray, categories};
+export {offersArray, offerData};

@@ -1,30 +1,23 @@
-import {categories} from './data.js'
+import {offerData} from './data.js'
 
 const selectTypeForm = document.querySelector('#type');
 const priceInput = document.querySelector('#price');
 const timeInForm = document.querySelector('#timein');
 const timeOutForm = document.querySelector('#timeout');
 
-selectTypeForm.addEventListener('change', function() {
-  switch (selectTypeForm.value) {
-    case 'bungalow':
-      priceInput.placeholder = categories.bungalow.minPrice;
-      priceInput.min = categories.bungalow.minPrice;
-      break;
-    case 'flat':
-      priceInput.placeholder = categories.flat.minPrice;
-      priceInput.min = categories.flat.minPrice;
-      break;
-    case 'house':
-      priceInput.placeholder = categories.house.minPrice;
-      priceInput.min = categories.house.minPrice;
-      break;
-    case 'palace':
-      priceInput.placeholder = categories.palace.minPrice;
-      priceInput.min = categories.palace.minPrice;
-      break;
-  }
-});
+const minPrice = offerData.minPrice;
+
+const setMinPrice = () =>  {
+  const minPriceKeys = Object.keys(minPrice);
+  minPriceKeys.forEach(element => {
+    if (element === selectTypeForm.value) {
+      priceInput.placeholder = minPrice[element];
+      priceInput.min = minPrice[element];
+    }
+  });
+};
+
+selectTypeForm.addEventListener('change', setMinPrice);
 
 let changeEvent = new Event('change');
 selectTypeForm.dispatchEvent(changeEvent);
