@@ -1,4 +1,4 @@
-import offersArray from './data.js';
+import  {offersArray, offerData} from './data.js';
 
 const templateContent = document.querySelector('#card').content;
 const popup = templateContent.querySelector('.popup');
@@ -13,15 +13,11 @@ const getSimilarOffers = (data) => {
     newElement.querySelector('.popup__text--address').textContent = data[i].offer.address;
     newElement.querySelector('.popup__text--price').textContent = data[i].offer.price + ' ₽/ночь';
 
-    let type;
-    if (data[i].offer.type === 'flat') {
-      type = 'Квартира';
-    } else if (data[i].offer.type === 'bungalow') {
-      type = 'Бунгало';
-    } else if (data[i].offer.type === 'house') {
-      type = 'Дом';
-    } else if (data[i].offer.type === 'palace') {
-      type = 'Дворец';
+    let category = data[i].offer.type;
+    let type = offerData.type[category];
+
+    if (offerData.type[category] === undefined) {
+      break;
     }
 
     newElement.querySelector('.popup__type').textContent = type;
