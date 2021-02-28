@@ -2,7 +2,6 @@ import  {offersArray, offerData} from './data.js';
 
 const templateContent = document.querySelector('#card').content;
 const popup = templateContent.querySelector('.popup');
-const mapBlock = document.querySelector('#map-canvas');
 const similarOffers = [];
 
 const getSimilarOffers = (data) => {
@@ -27,7 +26,12 @@ const getSimilarOffers = (data) => {
     const featuresList = newElement.querySelector('.popup__features');
     featuresList.innerHTML = '';
 
+
+
     for (let j = 0; j < data[i].offer.features.length; j++) {
+      if (data[i].offer.features === undefined) {
+        break
+      }
       let feature = document.createElement('li');
       feature.classList.add('popup__feature', `popup__feature--${data[i].offer.features[j]}`);
       feature.textContent = data[i].offer.features[j];
@@ -52,6 +56,6 @@ const getSimilarOffers = (data) => {
   return similarOffers;
 }
 
-mapBlock.appendChild(getSimilarOffers(offersArray)[0]);
+const popupData = getSimilarOffers(offersArray);
 
-export default mapBlock;
+export default popupData;
