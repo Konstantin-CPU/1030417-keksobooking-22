@@ -72,11 +72,4 @@ for (let i = 0; i < offersArray.length; i++) {
 
   marker.addTo(map);
   marker.bindPopup(popupData[i]);
-};
-
-// const createCustomPopup = (offersArray) => {
-//   for (let i = 0; i < offersArray.length; i++) {
-//     const popup = popupData[i];
-//     console.log(popup);
-//   }
-// }
+}
