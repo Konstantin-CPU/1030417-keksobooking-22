@@ -99,14 +99,6 @@ window.addEventListener('load', () => {
   const roomSelect = document.querySelector('#room_number');
   const guestsSelect = document.querySelector('#capacity');
 
-  for (let i = 0; i < roomSelect.length; i++) {
-    if (guestsSelect[i].value !== '1') {
-      guestsSelect[i].disabled;
-    }
-  }
-
-
-
   const getAvailableOptions = (value, selectedInput, processingInput) => {
     for (let i = 0; i < processingInput.length; i++) {
       let processingElement = processingInput[i];
