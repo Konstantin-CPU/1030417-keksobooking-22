@@ -104,42 +104,24 @@ window.addEventListener('load', () => {
       let processingElement = processingInput[i];
       let processingValue = processingElement.value;
 
+
       processingElement.disabled = false;
 
-      if (selectedInput.value < '2') {
-        if (processingValue !== `${value}`) {
+      if (selectedInput.value === '100') {
+        if (processingValue !== '0') {
           processingElement.disabled = true;
         }
       }
-      if (selectedInput === roomSelect) {
-        const exeption = !(processingValue > '0' && processingValue < '3');
-        const secondExeption = !(processingValue > '0' && processingValue < '4');
 
-        if (selectedInput.value === '2') {
-          if (exeption) {
-            processingElement.disabled = true;
-          }
-        }
-        if (selectedInput.value === '3') {
-          if (secondExeption) {
-            processingElement.disabled = true;
-          }
+      if (selectedInput.value === '1') {
+        if (processingValue !== '1') {
+          processingElement.disabled = true;
         }
       }
 
-      if (selectedInput === guestsSelect) {
-        const exeption = selectedInput.value > '0' && selectedInput.value < '3';
-        const secondExeption = selectedInput.value > '0' && selectedInput.value < '4';
-
-        if (exeption) {
-          if (!(processingValue > '0' && processingValue < '3')) {
-            processingElement.disabled = true;
-          }
-        }
-        if (secondExeption) {
-          if (!(processingValue > '0' && processingValue < '4')) {
-            processingElement.disabled = true;
-          }
+      if (selectedInput.value > 1 && selectedInput.value < 4) {
+        if (processingValue < 1 || processingValue > selectedInput.value) {
+          processingElement.disabled = true;
         }
       }
     }
@@ -153,13 +135,7 @@ window.addEventListener('load', () => {
     getAvailableOptions(roomValue, roomSelect, guestsSelect);
   }
 
-  const controlRoomSelectOption = () => {
-    const guestValue = parseInt(guestsSelect.value);
-    getAvailableOptions(guestValue, guestsSelect, roomSelect);
-  }
-
   roomSelect.addEventListener('change', controlGuestSelectOption);
-  guestsSelect.addEventListener('change', controlRoomSelectOption);
 
 
   adInfoForm.addEventListener('submit', (evt) => {
