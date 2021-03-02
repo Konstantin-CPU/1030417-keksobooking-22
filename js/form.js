@@ -160,10 +160,17 @@ window.addEventListener('load', () => {
 
   roomSelect.addEventListener('change', controlGuestSelectOption);
   guestsSelect.addEventListener('change', controlRoomSelectOption);
+
+
+  adInfoForm.addEventListener('submit', (evt) => {
+    if (roomSelect.value < guestsSelect.value) {
+      roomSelect.setCustomValidity('Гостей не может быть больше доступных комнат!');
+      evt.preventDefault();
+    } else {
+      roomSelect.setCustomValidity('');
+      evt.defaultPrevented = false;
+    }
+    roomSelect.reportValidity();
+  })
 })
-
-
-
-
-
 export {getFormAccessibility, addressInput, offersArray};
