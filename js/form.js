@@ -99,52 +99,64 @@ window.addEventListener('load', () => {
   const roomSelect = document.querySelector('#room_number');
   const guestsSelect = document.querySelector('#capacity');
 
-  const getAvailableOptions = (value, selectedInput, processingInput) => {
+  const getAvailableOptions = (selectedInput, processingInput) => {
     for (let i = 0; i < processingInput.length; i++) {
-      let processingElement = processingInput[i];
-      let processingValue = processingElement.value;
 
+      roomSelect.setCustomValidity('');
 
-      processingElement.disabled = false;
+      processingInput[i].disabled = false;
 
       if (selectedInput.value === '100') {
-        if (processingValue !== '0') {
-          processingElement.disabled = true;
+        if (processingInput[i].value !== '0') {
+          processingInput[i].disabled = true;
         }
       }
 
       if (selectedInput.value === '1') {
-        if (processingValue !== '1') {
-          processingElement.disabled = true;
+        if (processingInput[i].value !== '1') {
+          processingInput[i].disabled = true;
         }
       }
 
       if (selectedInput.value > 1 && selectedInput.value < 4) {
-        if (processingValue < 1 || processingValue > selectedInput.value) {
-          processingElement.disabled = true;
+        if (processingInput[i].value < '1' || processingInput[i].value > selectedInput.value) {
+          processingInput[i].disabled = true;
         }
       }
     }
   }
 
-  getAvailableOptions(parseInt(roomSelect.value), roomSelect, guestsSelect);
-
+  getAvailableOptions(roomSelect, guestsSelect)
 
   const controlGuestSelectOption = () => {
-    const roomValue = parseInt(roomSelect.value);
-    getAvailableOptions(roomValue, roomSelect, guestsSelect);
+    getAvailableOptions(roomSelect, guestsSelect);
   }
 
   roomSelect.addEventListener('change', controlGuestSelectOption);
-
+  guestsSelect.addEventListener('change', () => {
+    roomSelect.setCustomValidity('');
+  })
 
   adInfoForm.addEventListener('submit', (evt) => {
-    if (roomSelect.value < guestsSelect.value) {
-      roomSelect.setCustomValidity('Гостей не может быть больше доступных комнат!');
-      evt.preventDefault();
-    } else {
-      roomSelect.setCustomValidity('');
-      evt.defaultPrevented = false;
+    if (roomSelect.value === '100') {
+      if (guestsSelect.value !== '0') {
+        evt.preventDefault();
+        roomSelect.setCustomValidity('Не для гостей!');
+      }
+    }
+
+    if (roomSelect.value === '1') {
+      if (guestsSelect.value !== '1') {
+        evt.preventDefault();
+        roomSelect.setCustomValidity('Ошибка');
+      }
+    }
+
+    if (roomSelect.value > 1 && roomSelect.value < 4) {
+      if (guestsSelect.value < '1' || guestsSelect.value.value > roomSelect.value) {
+        evt.preventDefault();
+        roomSelect.setCustomValidity('Гостей не может быть больше комнат!');
+      }
     }
     roomSelect.reportValidity();
   })
