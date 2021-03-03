@@ -47,10 +47,6 @@ mainMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
-
-
-
-
 for (let i = 0; i < offersArray.length; i++) {
   const icon = L.icon(
     {

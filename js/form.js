@@ -32,36 +32,133 @@ const getFormAccessibility = (boolean) => {
 getFormAccessibility();
 
 const addressInput = document.querySelector('#address');
-addressInput.value = '35.6894, 139.692';
 
-const selectTypeForm = document.querySelector('#type');
-const priceInput = document.querySelector('#price');
-const timeInForm = document.querySelector('#timein');
-const timeOutForm = document.querySelector('#timeout');
+window.addEventListener('load', () => {
+  const TITLE_MIN_LENGTH = 30;
+  const TITLE_MAX_LENGTH = 100;
 
-const minPrice = offerData.minPrice;
-
-const setMinPrice = () =>  {
-  const minPriceKeys = Object.keys(minPrice);
-  minPriceKeys.forEach(element => {
-    if (element === selectTypeForm.value) {
-      priceInput.placeholder = minPrice[element];
-      priceInput.min = minPrice[element];
+  const title = document.querySelector('#title');
+  title.addEventListener('input', () => {
+    const valueLength = title.value.length;
+    if (valueLength < TITLE_MIN_LENGTH) {
+      title.setCustomValidity(`Ещё ${(TITLE_MIN_LENGTH - valueLength)} симв.`);
+    } else if (valueLength > TITLE_MAX_LENGTH) {
+      title.setCustomValidity(`Уберите ${(valueLength - TITLE_MAX_LENGTH)} симв.`)
+    } else {
+      title.setCustomValidity('');
     }
+
+    title.reportValidity();
   });
-};
 
-selectTypeForm.addEventListener('change', setMinPrice);
 
-let changeEvent = new Event('change');
-selectTypeForm.dispatchEvent(changeEvent);
+  addressInput.value = '35.6894, 139.692';
 
-timeInForm.addEventListener('change', function(evt) {
-  timeOutForm.value = evt.target.value;
-});
+  const selectTypeForm = document.querySelector('#type');
+  const priceInput = document.querySelector('#price');
+  const timeInForm = document.querySelector('#timein');
+  const timeOutForm = document.querySelector('#timeout');
 
-timeOutForm.addEventListener('change', function(evt) {
-  timeInForm.value = evt.target.value;
-});
+  const minPrice = offerData.minPrice;
 
+  const setMinPrice = () =>  {
+    const minPriceKeys = Object.keys(minPrice);
+    minPriceKeys.forEach(element => {
+      if (element === selectTypeForm.value) {
+        priceInput.placeholder = minPrice[element];
+        priceInput.min = minPrice[element];
+      }
+    });
+  };
+
+  selectTypeForm.addEventListener('change', setMinPrice);
+
+  const PRICE_MAX = 1000000;
+
+  priceInput.addEventListener('input', () => {
+    if (priceInput.value > PRICE_MAX) {
+      priceInput.setCustomValidity(`Максимальная цена - ${(PRICE_MAX)} руб.`)
+    } else {
+      priceInput.setCustomValidity('');
+    }
+
+    priceInput.reportValidity();
+  })
+
+  let changeEvent = new Event('change');
+  selectTypeForm.dispatchEvent(changeEvent);
+
+  timeInForm.addEventListener('change', function(evt) {
+    timeOutForm.value = evt.target.value;
+  });
+
+  timeOutForm.addEventListener('change', function(evt) {
+    timeInForm.value = evt.target.value;
+  });
+
+  const roomSelect = document.querySelector('#room_number');
+  const guestsSelect = document.querySelector('#capacity');
+
+  const getAvailableOptions = (selectedInput, processingInput) => {
+    for (let i = 0; i < processingInput.length; i++) {
+
+      roomSelect.setCustomValidity('');
+
+      processingInput[i].disabled = false;
+
+      if (selectedInput.value === '100') {
+        if (processingInput[i].value !== '0') {
+          processingInput[i].disabled = true;
+        }
+      }
+
+      if (selectedInput.value === '1') {
+        if (processingInput[i].value !== '1') {
+          processingInput[i].disabled = true;
+        }
+      }
+
+      if (selectedInput.value > 1 && selectedInput.value < 4) {
+        if (processingInput[i].value < '1' || processingInput[i].value > selectedInput.value) {
+          processingInput[i].disabled = true;
+        }
+      }
+    }
+  }
+
+  getAvailableOptions(roomSelect, guestsSelect)
+
+  const controlGuestSelectOption = () => {
+    getAvailableOptions(roomSelect, guestsSelect);
+  }
+
+  roomSelect.addEventListener('change', controlGuestSelectOption);
+  guestsSelect.addEventListener('change', () => {
+    roomSelect.setCustomValidity('');
+  })
+
+  adInfoForm.addEventListener('submit', (evt) => {
+    if (roomSelect.value === '100') {
+      if (guestsSelect.value !== '0') {
+        evt.preventDefault();
+        roomSelect.setCustomValidity('Не для гостей!');
+      }
+    }
+
+    if (roomSelect.value === '1') {
+      if (guestsSelect.value !== '1') {
+        evt.preventDefault();
+        roomSelect.setCustomValidity('Ошибка');
+      }
+    }
+
+    if (roomSelect.value > 1 && roomSelect.value < 4) {
+      if (guestsSelect.value < '1' || guestsSelect.value.value > roomSelect.value) {
+        evt.preventDefault();
+        roomSelect.setCustomValidity('Гостей не может быть больше комнат!');
+      }
+    }
+    roomSelect.reportValidity();
+  })
+})
 export {getFormAccessibility, addressInput, offersArray};
