@@ -1,5 +1,5 @@
-import {getFormAccessibility, addressInput, offersArray} from './form.js';
-import popupData from './popup.js';
+import {getFormAccessibility, addressInput} from './form.js';
+
 
 const L = window.L;
 
@@ -47,25 +47,4 @@ mainMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
-for (let i = 0; i < offersArray.length; i++) {
-  const icon = L.icon(
-    {
-      iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    },
-  )
-
-  const marker = L.marker(
-    {
-      lat: offersArray[i].location.x,
-      lng: offersArray[i].location.y,
-    },
-    {
-      icon,
-    },
-  )
-
-  marker.addTo(map);
-  marker.bindPopup(popupData[i]);
-}
+export {L, map}

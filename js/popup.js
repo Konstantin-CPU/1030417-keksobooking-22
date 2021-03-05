@@ -1,8 +1,10 @@
-import  {offersArray, offerData} from './data.js';
+import  {offerData} from './data.js';
+import  {getData} from './api.js';
+import  {map, L} from './map.js';
 
 const templateContent = document.querySelector('#card').content;
 const popup = templateContent.querySelector('.popup');
-const similarOffers = [];
+let similarOffers = [];
 
 const getSimilarOffers = (data) => {
   for (let i = 0; i < data.length; i++) {
@@ -25,8 +27,6 @@ const getSimilarOffers = (data) => {
 
     const featuresList = newElement.querySelector('.popup__features');
     featuresList.innerHTML = '';
-
-
 
     for (let j = 0; j < data[i].offer.features.length; j++) {
       if (data[i].offer.features === undefined) {
@@ -52,10 +52,41 @@ const getSimilarOffers = (data) => {
     newElement.querySelector('.popup__avatar').src = data[i].author.avatar;
 
     similarOffers[i] = newElement;
+
+
+    const icon = L.icon(
+      {
+        iconUrl: 'img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      },
+    )
+
+    const marker = L.marker(
+      {
+        lat: data[i].location.x,
+        lng: data[i].location.y,
+      },
+      {
+        icon,
+      },
+    )
+
+    marker.addTo(map);
+    marker.bindPopup(similarOffers[i]);
   }
-  return similarOffers;
 }
 
-const popupData = getSimilarOffers(offersArray);
 
-export default popupData;
+getData(
+  (array) => {
+    return getSimilarOffers(array);
+  },
+  (err) => {
+    return err;
+  },
+);
+
+
+
+export default similarOffers;
