@@ -47,4 +47,4 @@ mainMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
-export {L, map}
+export {L, map, mainMarker}

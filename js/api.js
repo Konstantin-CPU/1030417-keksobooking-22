@@ -13,4 +13,22 @@ const getData = (onSuccess, onError) => {
     })
 }
 
-export {getData}
+const sendData = (onSuccess, onError, body) => {
+  fetch('https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      contentType: 'multipart/form-data',
+      body,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      }
+    })
+    .catch(() => {
+      onError();
+    });
+}
+
+export {getData, sendData}
