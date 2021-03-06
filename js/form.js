@@ -1,4 +1,6 @@
-import {offersArray, offerData} from './data.js'
+import {offerData} from './data.js'
+import {sendData} from './api.js'
+import {mainMarker} from './map.js'
 
 const adInfoForm = document.querySelector('.ad-form');
 const adInfoFormFieldsets = document.querySelector('.notice')
@@ -137,6 +139,57 @@ window.addEventListener('load', () => {
     roomSelect.setCustomValidity('');
   })
 
+  const mainTag = document.querySelector('main');
+
+  const showSuccessfullDispatch = () => {
+    const successTemplate = document.querySelector('#success').content;
+    const successfullMessage = successTemplate.querySelector('.success').cloneNode(true);
+    mainTag.appendChild(successfullMessage);
+
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Esc' || evt.key === 'Escape') {
+        successfullMessage.remove();
+      }
+    })
+
+    document.addEventListener('click', () => {
+      successfullMessage.remove();
+    })
+  }
+
+  const showFailedDispatch = () => {
+    const errorTemplate = document.querySelector('#error').content;
+    const errorMessage = errorTemplate.querySelector('.error').cloneNode(true);
+    mainTag.appendChild(errorMessage);
+
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Esc' || evt.key === 'Escape') {
+        errorMessage.remove();
+      }
+    });
+
+    document.addEventListener('click', () => {
+      errorMessage.remove();
+    });
+
+    const closeErrorButton = errorMessage.querySelector('error__message');
+    closeErrorButton.addEventListener('click', () => {
+      errorMessage.remove();
+    })
+  }
+
+  const filters = document.querySelector('.map__filters')
+
+  const resetForm = () => {
+    adInfoForm.reset();
+    filters.reset();
+    addressInput.value = '35.6894, 139.692'
+    mainMarker.setLatLng([35.684, 139.752]).update();
+  }
+
+  const formResetButton = document.querySelector('.ad-form__reset');
+  formResetButton.addEventListener('click', resetForm);
+
   adInfoForm.addEventListener('submit', (evt) => {
     if (roomSelect.value === '100') {
       if (guestsSelect.value !== '0') {
@@ -158,7 +211,19 @@ window.addEventListener('load', () => {
         roomSelect.setCustomValidity('Гостей не может быть больше комнат!');
       }
     }
+    evt.preventDefault();
     roomSelect.reportValidity();
+
+    sendData(
+      () => {
+        showSuccessfullDispatch();
+        resetForm();
+      },
+      () => {
+        showFailedDispatch();
+      },
+      new FormData(evt.target),
+    );
   })
 })
-export {getFormAccessibility, addressInput, offersArray};
+export {getFormAccessibility, addressInput};
