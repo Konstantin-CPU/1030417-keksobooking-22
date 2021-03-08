@@ -15,15 +15,21 @@ const getFormAccessibility = (boolean) => {
     adInfoFormFieldsets.forEach(element => {
       element.disabled = false;
     });
-    mapFilterForm.classList.remove('map__filters--disabled');
-    mapFilterFormElements.forEach(element => {
-      element.disabled = false;
-    });
   } else {
     adInfoForm.classList.add('ad-form--disabled');
     adInfoFormFieldsets.forEach(element => {
       element.disabled = true;
     });
+  }
+}
+
+const getFilterAccessibility = (boolean) => {
+  if (boolean === true) {
+    mapFilterForm.classList.remove('map__filters--disabled');
+    mapFilterFormElements.forEach(element => {
+      element.disabled = false;
+    });
+  } else {
     mapFilterForm.classList.add('map__filters--disabled');
     mapFilterFormElements.forEach(element => {
       element.disabled = true;
@@ -32,6 +38,7 @@ const getFormAccessibility = (boolean) => {
 }
 
 getFormAccessibility();
+getFilterAccessibility();
 
 const addressInput = document.querySelector('#address');
 
@@ -226,4 +233,4 @@ window.addEventListener('load', () => {
     );
   })
 })
-export {getFormAccessibility, addressInput};
+export {getFormAccessibility, getFilterAccessibility, addressInput, mapFilterForm};
