@@ -8,7 +8,6 @@ const L = window.L;
 const map = L.map('map-canvas')
   .on('load', () => {
     getFormAccessibility(true);
-    getFilterAccessibility(true);
   })
   .setView({
     lat: 35.6894,
@@ -86,8 +85,10 @@ getData((ads) => {
   createSimilarAds(ads);
   setFilterReset(() => createSimilarAds(ads));
   setFilterChange(() => createSimilarAds(ads));
+  getFilterAccessibility(true);
 },
 (err) => {
+  getFilterAccessibility();
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
