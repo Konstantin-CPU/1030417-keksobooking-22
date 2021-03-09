@@ -15,13 +15,6 @@ const disableFilter = () => {
   featuresFieldset.disabled = true;
 };
 disableFilter();
-const enableFilter = () => {
-  mapFilterForm.classList.remove('map__filters--disabled');
-  selects.forEach((select) => {
-    select.disabled = false;
-  });
-  featuresFieldset.disabled = false;
-};
 
 const getFilterByPrice = (data) => {
   const LOW_PRICE = 10000;
@@ -71,4 +64,4 @@ const setFilterReset = (cb) => {
   });
 };
 
-export {enableFilter, disableFilter, filterAds, setFilterChange, setFilterReset};
+export {disableFilter, filterAds, setFilterChange, setFilterReset};

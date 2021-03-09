@@ -2,6 +2,10 @@ import {offerData} from './data.js'
 import {sendData} from './api.js'
 import {mainMarker} from './map.js'
 
+const TITLE_MIN_LENGTH = 30;
+const TITLE_MAX_LENGTH = 100;
+const PRICE_MAX = 1000000;
+
 const adInfoForm = document.querySelector('.ad-form');
 const adInfoFormFieldsets = document.querySelector('.notice')
   .querySelectorAll('fieldset');
@@ -43,8 +47,6 @@ getFilterAccessibility();
 const addressInput = document.querySelector('#address');
 
 window.addEventListener('load', () => {
-  const TITLE_MIN_LENGTH = 30;
-  const TITLE_MAX_LENGTH = 100;
 
   const title = document.querySelector('#title');
   title.addEventListener('input', () => {
@@ -81,8 +83,6 @@ window.addEventListener('load', () => {
   };
 
   selectTypeForm.addEventListener('change', setMinPrice);
-
-  const PRICE_MAX = 1000000;
 
   priceInput.addEventListener('input', () => {
     if (priceInput.value > PRICE_MAX) {

@@ -3,6 +3,8 @@ import {filterAds, setFilterChange, setFilterReset} from './filter.js'
 import {createCards} from './popup.js'
 import {getData} from './api.js'
 
+const RERENDER_DELAY = 500;
+
 const L = window.L;
 const _ = window._;
 
@@ -81,8 +83,6 @@ const createSimilarAds = similarAds => {
       smallMarkers.push(smallMarker);
     });
 };
-
-const RERENDER_DELAY = 500;
 
 getData((ads) => {
   createSimilarAds(ads);

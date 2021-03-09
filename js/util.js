@@ -15,35 +15,4 @@ const getRandomNumberWithPoint = (min, max, numbersAfterPoint) => {
   return parseFloat((Math.random() * (max - min) + min).toFixed(numbersAfterPoint));
 }
 
-const getRandomArrayItem = (array) => {
-  return array[getRandomNumber(0, array.length - 1)];
-}
-
-const getRandomCoordinates = (elements) => {
-  return getRandomNumberWithPoint(elements[0], elements[1], 5);
-}
-
-const getPhotos = () => {
-  const photos = [];
-  for (let i = 0; i <= getRandomNumber(0, 2); i++) {
-    photos[i] = 'http://o0.github.io/assets/images/tokyo/hotel' + (i + 1) + '.jpg';
-  }
-  return photos;
-}
-
-const getRandomArray = (array) => {
-
-  array.slice();
-
-  array.sort(() => Math.random() - 0.5);
-
-  const arrayLength = getRandomNumber(1, array.length);
-
-  const newArray = [];
-  for (let i = 0; i < arrayLength; i++) {
-    newArray.push(array[i]);
-  }
-  return newArray;
-}
-
-export {getRandomNumber, getRandomNumberWithPoint, getRandomArrayItem, getRandomCoordinates, getPhotos, getRandomArray};
+export {getRandomNumber, getRandomNumberWithPoint};
