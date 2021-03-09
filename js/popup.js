@@ -14,7 +14,7 @@ const createCards = (data) => {
   let type = offerData.type[category];
 
   if (offerData.type[category] === undefined) {
-    throw new Error('Ошибка');
+    throw new Error('Ошибка!');
   }
 
   newElement.querySelector('.popup__type').textContent = type;
