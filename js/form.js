@@ -233,4 +233,5 @@ window.addEventListener('load', () => {
     );
   })
 })
+
 export {getFormAccessibility, getFilterAccessibility, addressInput, mapFilterForm};
