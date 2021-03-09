@@ -116,4 +116,4 @@ getData((ads) => {
   }, 5000);
 });
 
-export {L, map, mainMarker}
+export {map, mainMarker}

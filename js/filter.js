@@ -1,31 +1,26 @@
 import {mapFilterForm} from './form.js'
 
-const SELECTS = mapFilterForm.querySelectorAll('select');
-
-const TYPE_SELECT = mapFilterForm.querySelector('#housing-type');
-
-const PRICE_SELECT = mapFilterForm.querySelector('#housing-price');
-
-const ROOMS_SELECT = mapFilterForm.querySelector('#housing-rooms');
-
-const GUESTS_SELECT = mapFilterForm.querySelector('#housing-guests');
-
-const FEATURES_FIELDSET = mapFilterForm.querySelector('#housing-features');
+const selects = mapFilterForm.querySelectorAll('select');
+const typeSelect = mapFilterForm.querySelector('#housing-type');
+const priceSelect = mapFilterForm.querySelector('#housing-price');
+const roomSelect = mapFilterForm.querySelector('#housing-rooms');
+const guestSelect = mapFilterForm.querySelector('#housing-guests');
+const featuresFieldset = mapFilterForm.querySelector('#housing-features');
 
 const disableFilter = () => {
   mapFilterForm.classList.add('map__filters--disabled');
-  SELECTS.forEach((select) => {
+  selects.forEach((select) => {
     select.disabled = true;
   });
-  FEATURES_FIELDSET.disabled = true;
+  featuresFieldset.disabled = true;
 };
 disableFilter();
 const enableFilter = () => {
   mapFilterForm.classList.remove('map__filters--disabled');
-  SELECTS.forEach((select) => {
+  selects.forEach((select) => {
     select.disabled = false;
   });
-  FEATURES_FIELDSET.disabled = false;
+  featuresFieldset.disabled = false;
 };
 
 const getFilterByPrice = (data) => {
@@ -33,7 +28,7 @@ const getFilterByPrice = (data) => {
 
   const HIGH_PRICE = 50000;
 
-  switch (PRICE_SELECT.value) {
+  switch (priceSelect.value) {
     case 'low':
       return data.offer.price < LOW_PRICE;
     case 'middle':
@@ -46,24 +41,20 @@ const getFilterByPrice = (data) => {
 };
 
 const getFilterByFeatures = (data) => {
-  const CHECKED_FEATURES = FEATURES_FIELDSET.querySelectorAll('input:checked');
-  return Array.from(CHECKED_FEATURES).every((input) => {
+  const checkedFeatures = featuresFieldset.querySelectorAll('input:checked');
+  return Array.from(checkedFeatures).every((input) => {
     return data.offer.features.includes(input.value);
   });
 };
 
 const filterAds = (data) => {
-  const FILTER_BY_TYPE = TYPE_SELECT.value === 'any' || TYPE_SELECT.value === data.offer.type;
+  const filterByType = typeSelect.value === 'any' || typeSelect.value === data.offer.type;
+  const filterByRooms = roomSelect.value === 'any' || +roomSelect.value === data.offer.rooms;
+  const filterByGuests = guestSelect.value === 'any' || +guestSelect.value === data.offer.guests;
+  const filterByPrice = getFilterByPrice(data);
+  const filterByFeatures = getFilterByFeatures(data);
 
-  const FILTER_BY_ROOMS = ROOMS_SELECT.value === 'any' || +ROOMS_SELECT.value === data.offer.rooms;
-
-  const FILTER_BY_GUESTS = GUESTS_SELECT.value === 'any' || +GUESTS_SELECT.value === data.offer.guests;
-
-  const FILTER_BY_PRICE = getFilterByPrice(data);
-
-  const FILTER_BY_FEATURES = getFilterByFeatures(data);
-
-  return FILTER_BY_TYPE && FILTER_BY_ROOMS && FILTER_BY_GUESTS && FILTER_BY_PRICE && FILTER_BY_FEATURES;
+  return filterByType && filterByRooms && filterByGuests && filterByPrice && filterByFeatures;
 };
 
 const setFilterChange = (cb) => {
