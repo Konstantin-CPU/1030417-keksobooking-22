@@ -4,6 +4,7 @@ import {createCards} from './popup.js'
 import {getData} from './api.js'
 
 const L = window.L;
+const _ = window._;
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -81,10 +82,15 @@ const createSimilarAds = similarAds => {
     });
 };
 
+const RERENDER_DELAY = 500;
+
 getData((ads) => {
   createSimilarAds(ads);
   setFilterReset(() => createSimilarAds(ads));
-  setFilterChange(() => createSimilarAds(ads));
+  setFilterChange(_.debounce(
+    () => createSimilarAds(ads),
+    RERENDER_DELAY,
+  ));
   getFilterAccessibility(true);
 },
 (err) => {
